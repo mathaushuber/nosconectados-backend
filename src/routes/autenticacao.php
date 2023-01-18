@@ -50,22 +50,6 @@ $app->get('/api/user', function($request, $response){
 			'update_at_local' => $localizacaoUsuario->updated_at,
 			'created_at_local' => $localizacaoUsuario->created_at,
 		]);
-	}else{
-		return $response->withJson([
-			'id' => $usuario->id,
-			'isAdmin' => $usuario->isAdmin,
-			'registerConfirmed' => $usuario->registerConfirmed,
-			'firstName' => $usuario->firstName,
-			'lastName' => $usuario->lastName,
-			'document' => $usuario->document,
-			'phone' => $usuario->phone,
-			'email' => $usuario->email,
-			'facebookProfile' => $usuario->facebookProfile,
-			'gender' => $usuario->gender,
-			'birthdayDate' => $usuario->birthdayDate,
-			'updated_at_user' => $usuario->updated_at,
-			'created_at_user' => $usuario->created_at,
-		]);
 	}
 
 });
@@ -87,7 +71,7 @@ $app->get('/api/sensor', function($request, $response){
 		$idSensor[$key] = Sensor::where('id', $value->idInfoSensor)->first();
 		if($idUser == $value->idUsuario && !is_null($infoSensor[$key])){
 	
-		$sensorData[$key] = array("id"=>$value->id,
+		$sensorData[$key] = array("id"=>$idSensor[$key]->id,
 		'firstName' => $usuario->firstName,
 		'lastName' => $usuario->lastName,
 		'lowDescription' => $infoSensor[$key]->lowDescription,
