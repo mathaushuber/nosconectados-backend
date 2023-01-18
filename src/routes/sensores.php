@@ -119,6 +119,48 @@ $app->group('/api/v1', function(){
 
 	});
 
+	// Recupera sensor para um determinado ID
+	$this->get('/sensores/lista/geral/{id}', function($request, $response, $args){
+		
+		$sensor = Sensor::findOrFail( $args['id'] );
+		$informacoesSensor = InformacaoSensor::findOrFail( $args['id'] );
+		$sensorData = [];
+		$sensorData = array(
+			"id" => $sensor->id,
+			'lowDescription' => $informacoesSensor->lowDescription,
+			'description' => $informacoesSensor->description,
+			'isActive' => $informacoesSensor->isActive,
+			'isPublic' => $informacoesSensor->isPublic,
+			'area' => $informacoesSensor->area,
+			'typeProduction' => $informacoesSensor->typeProduction,
+			'latitude' => $informacoesSensor->latitude,
+			'longitude' => $informacoesSensor->longitude,
+			'property' => $informacoesSensor->property,
+			'state' => $informacoesSensor->state,
+			'idSensor' => $informacoesSensor->idSensor,
+			'city' => $informacoesSensor->city,
+			'readAt' => $sensor->readAt,
+			'temperatureSoil' => $sensor->temperatureSoil,
+			'temperatureAir' => $sensor->temperatureAir,
+			'luminosity' => $sensor->luminosity,
+			'pluviometer' => $sensor->pluviometer,
+			'ultraviolet' => $sensor->ultraviolet,
+			'temperatureCase' => $sensor->temperatureCase,
+			'rainIntensity' => $sensor->rainIntensity,
+			'windDirection' => $sensor->windDirection,
+			'windSpeed' => $sensor->windSpeed,
+			'gas' => $sensor->gas,
+			'humidityAirRelative' => $sensor->humidityAirRelative,
+			'altitude' => $sensor->altitude,
+			'pressure' => $sensor->pressure,
+			'updated_at' => $sensor->updated_at,
+			'created_at' => $sensor->updated_at,
+		);
+
+		return $response->withJson( $sensorData, 200 );
+
+	});
+
 	// Adiciona um sensor
 	$this->post('/sensores/adiciona', function($request, $response){
 		
