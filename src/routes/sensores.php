@@ -183,10 +183,10 @@ $app->group('/api/v1', function(){
 
 	// Atualiza sensor para um determinado ID
 	$this->put('/sensores/atualiza/{id}', function($request, $response, $args){
-		
 		$dados = $request->getParsedBody();
 		$sensor = Sensor::findOrFail( $args['id'] );
 		$sensor->update( $dados );
+		gravar($sensor);
 		return $response->withJson( $sensor );
 
 	});
@@ -200,5 +200,51 @@ $app->group('/api/v1', function(){
 
 	});
 
+	$this->get('/sensores/data/{id}', function($request, $response, $args){
+		$arquivo = "public/data.json";
+		$fp = fopen($arquivo, "r");
+		$json = file_get_contents($arquivo);
+		fclose($fp);
+		$sensorData = [];
+		$data = json_decode($json);
+		foreach ($data as $key => $value){
+			if($args['id'] == $value->id){
+				$sensorData[$key] = array(
+					"id" => $value->id,
+					"readAt" => $value->readAt,
+					"temperatureSoil" => $value->temperatureSoil,
+					"temperatureAir" => $value->temperatureAir,
+					"luminosity" => $value->luminosity,
+					"pluviometer" => $value->pluviometer,
+					"ultraviolet" => $value->ultraviolet,
+					"temperatureCase" => $value->temperatureCase,
+					"rainIntensity" => $value->rainIntensity,
+					"windDirection" => $value->windDirection,
+					"windSpeed" => $value->windSpeed,
+					"gas" => $value->gas,
+					"humidityAirRelative" => $value->humidityAirRelative,
+					"altitude" => $value->altitude,
+					"pressure" => $value->pressure,
+				);
+			}
+		}
+
+		return $response->withJson( $sensorData, 200 );
+	});
 
 });
+
+function gravar($dados){
+	$arquivo = "public/data.json";
+	$arrayData = array();
+	$fp = fopen($arquivo, "r");
+	$conteudo = fread($fp, filesize($arquivo));
+	$arrayData = $conteudo;
+	fclose($fp);
+	$arrayData = json_decode($arrayData);
+	$fp = fopen($arquivo, "w");
+	array_push($arrayData, $dados);
+	$arrayData = json_encode($arrayData);
+	fwrite($fp, $arrayData);
+	fclose($fp);
+}
