@@ -24,7 +24,6 @@ $app->get('/api/user', function($request, $response){
 
 	$usuario = JWT::decode($authorization, $secretKey, ['HS256']);
 	$localizacaoUsuario = LocalizacaoUsuario::where('idUser', $usuario->id)->first();
-	if(!is_null($localizacaoUsuario)){
 		return $response->withJson([
 			'id' => $usuario->id,
 			'isAdmin' => $usuario->isAdmin,
@@ -50,7 +49,6 @@ $app->get('/api/user', function($request, $response){
 			'update_at_local' => $localizacaoUsuario->updated_at,
 			'created_at_local' => $localizacaoUsuario->created_at,
 		]);
-	}
 
 });
 
