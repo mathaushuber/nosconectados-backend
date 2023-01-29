@@ -3,6 +3,7 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Models\AtribuicaoSensor;
+use App\Models\Usuario;
 
 // Rotas para atribuicoes
 $app->group('/api/v1', function(){
@@ -30,6 +31,52 @@ $app->group('/api/v1', function(){
 		
 		$atribuicoes = AtribuicaoSensor::findOrFail( $args['id'] );
 		return $response->withJson( $atribuicoes );
+
+	});
+
+	$this->get('/atribuicao/lista-geral', function($request, $response){
+		$atribuicoes = AtribuicaoSensor::get();
+		$usuario = Usuario::get();
+		$tamUser = sizeof($usuario);
+		$tamAtrib = sizeof($atribuicoes);
+		for ($i = 0; $i < $tamUser; $i++){
+			for($j = 0; $j < $tamAtrib; $j++){
+					if($usuario[$i]->id == $atribuicoes[$j]->idUsuario){
+						$sensorData[$j] = array(
+							"id" => $atribuicoes[$j]->id,
+							"firstName" => $usuario[$i]->firstName,
+							"lastName" => $usuario[$i]->lastName,
+							"idInfoSensor" => $atribuicoes[$j]->idInfoSensor,
+							"isAdminSensor" => $atribuicoes[$j]->isAdminSensor,
+						);
+					}
+			}
+		}
+		sort($sensorData);
+		return $response->withJson( $sensorData, 200 );
+
+	});
+
+	$this->get('/atribuicao/lista-geral/{id}', function($request, $response, $args){
+		$atribuicoes = AtribuicaoSensor::get();
+		$usuario = Usuario::get();
+		$tamUser = sizeof($usuario);
+		$tamAtrib = sizeof($atribuicoes);
+		for ($i = 0; $i < $tamUser; $i++){
+			for($j = 0; $j < $tamAtrib; $j++){
+					if($usuario[$i]->id == $atribuicoes[$j]->idUsuario && $args['id'] == $atribuicoes[$j]->idInfoSensor){
+						$sensorData[$j] = array(
+							"id" => $atribuicoes[$j]->id,
+							"firstName" => $usuario[$i]->firstName,
+							"lastName" => $usuario[$i]->lastName,
+							"idInfoSensor" => $atribuicoes[$j]->idInfoSensor,
+							"isAdminSensor" => $atribuicoes[$j]->isAdminSensor,
+						);
+					}
+			}
+		}
+		sort($sensorData);
+		return $response->withJson( $sensorData, 200 );
 
 	});
 
