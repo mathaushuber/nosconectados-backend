@@ -59,48 +59,24 @@ $app->get('/api/sensor', function($request, $response){
 	$usuario = JWT::decode($authorization, $secretKey, ['HS256']);
 	$idUser = $usuario->id;
 	$atribuicaoSensor = AtribuicaoSensor::get();
-	$temp = array();
+	$infoSensor = InformacaoSensor::get();
+	$dadosSensor = Sensor::get();
+	$tamInfo = sizeof($infoSensor);
 	foreach($atribuicaoSensor as $key => $value){
-		$temp[$key] = $value->idUsuario;
-	}
-	sort($temp);
-	foreach ($atribuicaoSensor as $key => $value){
-		$infoSensor[$key] = InformacaoSensor::where('id', $temp[$key])->first(); // [1] = são iguais [2] = 
-		$idSensor[$key] = Sensor::where('id', $value->idInfoSensor)->first();
-		if($idUser == $value->idUsuario && !is_null($infoSensor[$key])){
-	
-		$sensorData[$key] = array("id"=>$idSensor[$key]->id,
-		'firstName' => $usuario->firstName,
-		'lastName' => $usuario->lastName,
-		'lowDescription' => $infoSensor[$key]->lowDescription,
-		'description' => $infoSensor[$key]->description,
-		'isActive' => $infoSensor[$key]->isActive,
-		'isPublic' => $infoSensor[$key]->isPublic,
-		'area' => $infoSensor[$key]->area,
-		'typeProduction' => $infoSensor[$key]->typeProduction,
-		'latitude' => $infoSensor[$key]->latitude,
-		'longitude' => $infoSensor[$key]->longitude,
-		'property' => $infoSensor[$key]->property,
-		'state' => $infoSensor[$key]->state,
-		'idSensor' => $infoSensor[$key]->idSensor,
-		'city' => $infoSensor[$key]->city,
-		'readAt' => $idSensor[$key]->readAt,
-		'temperatureSoil' => $idSensor[$key]->temperatureSoil,
-		'temperatureAir' => $idSensor[$key]->temperatureAir,
-		'luminosity' => $idSensor[$key]->luminosity,
-		'pluviometer' => $idSensor[$key]->pluviometer,
-		'ultraviolet' => $idSensor[$key]->ultraviolet,
-		'temperatureCase' => $idSensor[$key]->temperatureCase,
-		'rainIntensity' => $idSensor[$key]->rainIntensity,
-		'windDirection' => $idSensor[$key]->windDirection,
-		'windSpeed' => $idSensor[$key]->windSpeed,
-		'gas' => $idSensor[$key]->gas,
-		'humidityAirRelative' => $idSensor[$key]->humidityAirRelative,
-		'altitude' => $idSensor[$key]->altitude,
-		'pressure' => $idSensor[$key]->pressure);
+		if($idUser == $value->idUsuario){
+			$sensorData[$key] = $atribuicaoSensor[$key];
 		}
 	}
-		return $response->withJson($sensorData,200);
+	for($i = 0; $i < $tamInfo; $i++){
+		foreach($sensorData as $key => $value){
+			if($infoSensor[$i]->id == $value->idInfoSensor){
+				$data[$i] = $infoSensor[$i];
+			}
+		}
+	}
+
+	return $response->withJson($data, 200);
+	
 });
 
 // Rotas para geração de token

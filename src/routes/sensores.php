@@ -4,6 +4,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Models\Sensor;
 use App\Models\InformacaoSensor;
+use App\Models\AtribuicaoSensor;
 
 // Rotas para sensores
 $app->group('/api/v1', function(){
@@ -29,9 +30,9 @@ $app->group('/api/v1', function(){
 				$tempData[$key] = $value->id;
 			}
 		}
-		foreach ($sensores as $key => $value){
-			if(InformacaoSensor::where('idSensor', $value->id)->first() && InformacaoSensor::where('id', $tempData[$key])->first()){
-				$infoSensor[$key] = InformacaoSensor::where('idSensor', $value->id)->first();
+		foreach ($informacoesSensor as $key => $value){
+			if(AtribuicaoSensor::where('idInfoSensor', $value->id)->first() && InformacaoSensor::where('id', $tempData[$key])->first()){
+				$infoSensor[$key] = InformacaoSensor::where('idSensor', $sensores[$key]->id)->first();
 				$sensorData[$key] = array(
 					"id" => $value->id,
 					'lowDescription' => $infoSensor[$key]->lowDescription,
@@ -122,7 +123,7 @@ $app->group('/api/v1', function(){
 	// Recupera sensor para um determinado ID
 	$this->get('/sensores/lista/geral/{id}', function($request, $response, $args){
 		
-		$sensor = Sensor::findOrFail( $args['id'] );
+		$sensor = Sensor::find( $args['id'] );
 		$informacoesSensor = InformacaoSensor::findOrFail( $args['id'] );
 		$sensorData = [];
 		$sensorData = array(
@@ -153,8 +154,8 @@ $app->group('/api/v1', function(){
 			'humidityAirRelative' => $sensor->humidityAirRelative,
 			'altitude' => $sensor->altitude,
 			'pressure' => $sensor->pressure,
-			'updated_at' => $sensor->updated_at,
-			'created_at' => $sensor->updated_at,
+			'updated_at' => $informacoesSensor->updated_at,
+			'created_at' => $informacoesSensor->updated_at,
 		);
 
 		return $response->withJson( $sensorData, 200 );
