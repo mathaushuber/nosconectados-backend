@@ -110,8 +110,9 @@ $app->group('/api/v1', function(){
 
 	// Remove informacoes para um determinado ID
 	$this->delete('/informacoes-sensor/remove/{id}', function($request, $response, $args){
-
 		$informacoes = InformacaoSensor::findOrFail( $args['id'] );
+		$atribuicao = AtribuicaoSensor::where( 'idInfoSensor', $args['id'])->get();
+		$atribuicao->each->delete();
 		$informacoes->delete();
 		return $response->withJson( $informacoes );
 

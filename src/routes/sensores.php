@@ -5,6 +5,7 @@ use Slim\Http\Response;
 use App\Models\Sensor;
 use App\Models\InformacaoSensor;
 use App\Models\AtribuicaoSensor;
+use \Firebase\JWT\JWT;
 
 // Rotas para sensores
 $app->group('/api/v1', function(){
@@ -233,7 +234,42 @@ $app->group('/api/v1', function(){
 		return $response->withJson( $sensorData, 200 );
 	});
 
+	$this->get('/sensores/solicitados', function($request, $response){
+		$headers = getallheaders();
+		$authorization = $headers['Authorization'] ?? null;
+		$secretKey = $this->get('settings')['secretKey'];
+		$usuario = JWT::decode($authorization, $secretKey, ['HS256']);
+		$idUser = $usuario->id;
+		$headers;
+		$atribuicaoSensor = AtribuicaoSensor::get();
+		$infoSensor = InformacaoSensor::get();
+		$dadosSensor = Sensor::get();
+		$tamInfo = sizeof($infoSensor);
+		foreach($atribuicaoSensor as $key => $value){
+			if($idUser == $value->idUsuario){
+				$sensorData[$key] = $atribuicaoSensor[$key];
+			}
+		}
+		for($i = 0; $i < $tamInfo; $i++){
+			foreach($sensorData as $key => $value){
+				if($infoSensor[$i]->id == $value->idInfoSensor){
+					$data[$i] = $infoSensor[$i];
+				}
+			}
+		}
+
+		foreach($data as $key => $value){
+			if(is_null($value->idSensor)){
+				$solicitados[$key] = $value;
+			}
+		}
+		return $response->withJson($solicitados, 200);
+		
+	});
+
 });
+
+
 
 function gravar($dados){
 	$arquivo = "public/data.json";
