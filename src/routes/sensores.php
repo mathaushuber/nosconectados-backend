@@ -19,54 +19,31 @@ $app->group('/api/v1', function(){
 
 	// Lista sensores com as respectivas informações
 	$this->get('/sensores/lista-geral', function($request, $response){
-		$sensores = Sensor::get();
 		$informacoesSensor = InformacaoSensor::get();
-		$i = 0;
-		$infoSensor = array();
-		$idInfoSensor = array();
-		$sensorData = [];
-		$tempData = [];
 		foreach ($informacoesSensor as $key => $value){
 			if($value->isPublic == 1){
-				$tempData[$key] = $value->id;
+				$tempData[$key] = $value;
 			}
 		}
-		foreach ($informacoesSensor as $key => $value){
-			if(AtribuicaoSensor::where('idInfoSensor', $value->id)->first() && InformacaoSensor::where('id', $tempData[$key])->first()){
-				$infoSensor[$key] = InformacaoSensor::where('idSensor', $sensores[$key]->id)->first();
+		foreach ($tempData as $key => $value){
 				$sensorData[$key] = array(
 					"id" => $value->id,
-					'lowDescription' => $infoSensor[$key]->lowDescription,
-					'description' => $infoSensor[$key]->description,
-					'isActive' => $infoSensor[$key]->isActive,
-					'isPublic' => $infoSensor[$key]->isPublic,
-					'area' => $infoSensor[$key]->area,
-					'typeProduction' => $infoSensor[$key]->typeProduction,
-					'latitude' => $infoSensor[$key]->latitude,
-					'longitude' => $infoSensor[$key]->longitude,
-					'property' => $infoSensor[$key]->property,
-					'state' => $infoSensor[$key]->state,
-					'idSensor' => $infoSensor[$key]->idSensor,
-					'city' => $infoSensor[$key]->city,
-					'readAt' => $value->readAt,
-					'temperatureSoil' => $value->temperatureSoil,
-					'temperatureAir' => $value->temperatureAir,
-					'luminosity' => $value->luminosity,
-					'pluviometer' => $value->pluviometer,
-					'ultraviolet' => $value->ultraviolet,
-					'temperatureCase' => $value->temperatureCase,
-					'rainIntensity' => $value->rainIntensity,
-					'windDirection' => $value->windDirection,
-					'windSpeed' => $value->windSpeed,
-					'gas' => $value->gas,
-					'humidityAirRelative' => $value->humidityAirRelative,
-					'altitude' => $value->altitude,
-					'pressure' => $value->pressure,
+					'lowDescription' => $value->lowDescription,
+					'description' => $value->description,
+					'isActive' => $value->isActive,
+					'isPublic' => $value->isPublic,
+					'area' => $value->area,
+					'typeProduction' => $value->typeProduction,
+					'latitude' => $value->latitude,
+					'longitude' => $value->longitude,
+					'property' => $value->property,
+					'city' => $value->city,
+					'state' => $value->state,
+					'idSensor' => $value->idSensor,
 					'updated_at' => $value->updated_at,
-					'created_at' => $value->updated_at,
+					'created_at' => $value->created_at,
 				);
 			}
-		}
 
 		return $response->withJson($sensorData,200);
 

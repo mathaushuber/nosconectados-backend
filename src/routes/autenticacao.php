@@ -79,6 +79,16 @@ $app->get('/api/sensor', function($request, $response){
 	
 });
 
+$app->get('/api/token', function($request, $response){
+	$headers = getallheaders();
+	$authorization = $headers['Authorization'] ?? null;
+	$data = array(
+		"token" => $authorization,
+	);
+	return $response->withJson($data, 200);
+	
+});
+
 // Rotas para geração de token
 $app->post('/api/login', function($request, $response){
 
