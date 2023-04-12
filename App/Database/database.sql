@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS usuarios(
     facebookProfile VARCHAR(100),
     gender CHAR(1) NOT NULL CHECK(gender  = 'M' or gender  = 'F' or gender = 'U'),
     birthdayDate DATE,
-    updated_at CHAR (20),
-    created_at CHAR (20)
+    updated_at VARCHAR (20),
+    created_at VARCHAR (20)
     
 );
 #--------------------------------------------------------------------------------------------------------
@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS imagem(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     idUser INT,
     uri VARCHAR(255) NOT NULL,
-    updated_at CHAR (20),
-    created_at CHAR (20)
+    updated_at VARCHAR (20),
+    created_at VARCHAR (20)
 );
 
 ALTER TABLE imagem ADD FOREIGN KEY(idUser) 
@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS localizacao_usuarios(
     complement CHAR(20),
     neighborhood VARCHAR(30) NOT NULL,
     idUser INT,
-    updated_at CHAR (20),
-    created_at CHAR (20)
+    updated_at VARCHAR (20),
+    created_at VARCHAR (20)
 );
 #--------------------------------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------------
@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS informacao_sensors(
     state VARCHAR(30)  NOT NULL,
     city VARCHAR(30) NOT NULL,
     idSensor INT,
-    updated_at CHAR (20),
-    created_at CHAR (20)
+    updated_at VARCHAR (20),
+    created_at VARCHAR (20)
 );
 
 CREATE TABLE IF NOT EXISTS atribuicao_sensors(
@@ -103,9 +103,30 @@ CREATE TABLE IF NOT EXISTS sensors(
     humidityAirRelative NUMERIC (10,5),
     altitude DECIMAL (5,2),
     pressure DECIMAL (5,2),
-    updated_at CHAR (20),
-    created_at CHAR (20)
+    updated_at VARCHAR (20),
+    created_at VARCHAR (20)
 );
+
+CREATE TABLE IF NOT EXISTS dados(
+    id INT NOT NULL,
+    readAt VARCHAR(30) NOT NULL,
+    temperatureSoil NUMERIC (10,5),
+    temperatureAir NUMERIC (10,5),
+    luminosity NUMERIC (10,5),
+    pluviometer NUMERIC (10,5),
+    ultraviolet NUMERIC (10,5),
+    temperatureCase NUMERIC (10,5),
+    rainIntensity NUMERIC (10,5),
+    windDirection NUMERIC (10,5),
+    windSpeed NUMERIC (10,5),
+    gas NUMERIC (10,5),
+    humidityAirRelative NUMERIC (10,5),
+    altitude DECIMAL (5,2),
+    pressure DECIMAL (5,2),
+    updated_at VARCHAR (20),
+    created_at VARCHAR (20)
+);
+
 
 #--ALTER TABLE usuarios ADD FOREIGN KEY(sensorId) 
 #--                REFERENCES sensors(id) 

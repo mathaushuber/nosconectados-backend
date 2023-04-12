@@ -3,6 +3,7 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Models\Sensor;
+use App\Models\Dado;
 use App\Models\InformacaoSensor;
 use App\Models\AtribuicaoSensor;
 use \Firebase\JWT\JWT;
@@ -52,10 +53,7 @@ $app->group('/api/v1', function(){
 	// Lista sensores com as respectivas informações
 	$this->get('/sensores/lista/todos', function($request, $response){
 		$sensores = Sensor::get();
-		$informacoesSensor = InformacaoSensor::get();
-		$i = 0;
 		$infoSensor = array();
-		$idInfoSensor = array();
 		$sensorData = [];
 		foreach ($sensores as $key => $value){
 			if(InformacaoSensor::where('idSensor', $value->id)->first()){
@@ -133,7 +131,7 @@ $app->group('/api/v1', function(){
 			'altitude' => $sensor->altitude,
 			'pressure' => $sensor->pressure,
 			'updated_at' => $informacoesSensor->updated_at,
-			'created_at' => $informacoesSensor->updated_at,
+			'created_at' => $informacoesSensor->created_at,
 		);
 
 		return $response->withJson( $sensorData, 200 );
@@ -165,7 +163,28 @@ $app->group('/api/v1', function(){
 		$dados = $request->getParsedBody();
 		$sensor = Sensor::findOrFail( $args['id'] );
 		$sensor->update( $dados );
-		gravar($sensor);
+		$sensorData = array(
+			'id' => $args['id'],
+			'readAt' => $sensor->readAt,
+			'temperatureSoil' => $sensor->temperatureSoil,
+			'temperatureAir' => $sensor->temperatureAir,
+			'luminosity' => $sensor->luminosity,
+			'pluviometer' => $sensor->pluviometer,
+			'ultraviolet' => $sensor->ultraviolet,
+			'temperatureCase' => $sensor->temperatureCase,
+			'rainIntensity' => $sensor->rainIntensity,
+			'windDirection' => $sensor->windDirection,
+			'windSpeed' => $sensor->windSpeed,
+			'gas' => $sensor->gas,
+			'humidityAirRelative' => $sensor->humidityAirRelative,
+			'altitude' => $sensor->altitude,
+			'pressure' => $sensor->pressure,
+			'updated_at' => $sensor->updated_at,
+			'created_at' => $sensor->created_at,
+		);
+
+		Dado::create( $sensorData );
+
 		return $response->withJson( $sensor );
 
 	});
@@ -177,38 +196,6 @@ $app->group('/api/v1', function(){
 		$sensor->delete();
 		return $response->withJson( $sensor );
 
-	});
-
-	$this->get('/sensores/data/{id}', function($request, $response, $args){
-		$arquivo = "public/data.json";
-		$fp = fopen($arquivo, "r");
-		$json = file_get_contents($arquivo);
-		fclose($fp);
-		$sensorData = [];
-		$data = json_decode($json);
-		foreach ($data as $key => $value){
-			if($args['id'] == $value->id){
-				$sensorData[$key] = array(
-					"id" => $value->id,
-					"readAt" => $value->readAt,
-					"temperatureSoil" => $value->temperatureSoil,
-					"temperatureAir" => $value->temperatureAir,
-					"luminosity" => $value->luminosity,
-					"pluviometer" => $value->pluviometer,
-					"ultraviolet" => $value->ultraviolet,
-					"temperatureCase" => $value->temperatureCase,
-					"rainIntensity" => $value->rainIntensity,
-					"windDirection" => $value->windDirection,
-					"windSpeed" => $value->windSpeed,
-					"gas" => $value->gas,
-					"humidityAirRelative" => $value->humidityAirRelative,
-					"altitude" => $value->altitude,
-					"pressure" => $value->pressure,
-				);
-			}
-		}
-
-		return $response->withJson( $sensorData, 200 );
 	});
 
 	$this->get('/sensores/solicitados', function($request, $response){
@@ -245,20 +232,3 @@ $app->group('/api/v1', function(){
 	});
 
 });
-
-
-
-function gravar($dados){
-	$arquivo = "public/data.json";
-	$arrayData = array();
-	$fp = fopen($arquivo, "r");
-	$conteudo = fread($fp, filesize($arquivo));
-	$arrayData = $conteudo;
-	fclose($fp);
-	$arrayData = json_decode($arrayData);
-	$fp = fopen($arquivo, "w");
-	array_push($arrayData, $dados);
-	$arrayData = json_encode($arrayData);
-	fwrite($fp, $arrayData);
-	fclose($fp);
-}

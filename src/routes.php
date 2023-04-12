@@ -1,5 +1,15 @@
 <?php
+/*
+Este é um código PHP que configura rotas para a aplicação do NOSCONECTADOS utilizando Slim Framework.
 
+O código define uma rota OPTIONS que corresponde a qualquer rota. Isso é usado para lidar com solicitações de simulação CORS (Compartilhamento de recursos de origem cruzada).
+
+O código então requer vários arquivos PHP que definem rotas para diferentes funcionalidades do aplicativo, como autenticação, sensores, usuários, etc.
+
+Por fim, há uma rota abrangente que corresponde a qualquer método HTTP e a qualquer rota que não tenha sido definida anteriormente. Esta rota é usada para lidar com erros 404, retornando um manipulador padrão de página Slim não encontrada.
+
+No geral, esse código configura o roteamento para um aplicativo Slim com várias rotas definidas e uma rota abrangente para lidar com erros 404.
+*/
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -19,10 +29,11 @@ require __DIR__ . '/routes/localizacoes_usuarios.php';
 require __DIR__ . '/routes/informacao_sensor.php';
 
 require __DIR__ . '/routes/atribuicao_sensor.php';
-// Catch-all route to serve a 404 Not Found page if none of the routes match
-// NOTE: make sure this route is defined last
+
+require __DIR__ . '/routes/dados.php';
+
 $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function($req, $res) {
-    $handler = $this->notFoundHandler; // handle using the default Slim page not found handler
+    $handler = $this->notFoundHandler; 
     return $handler($req, $res);
 });
 
