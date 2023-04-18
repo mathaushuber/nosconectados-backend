@@ -13,7 +13,7 @@ $app->group('/api/v1', function(){
 		$dados = Dado::get();
         foreach ($dados as $key => $value){
 			if($args['id'] == $value->id){
-				$sensorData[$key] = array(
+				$sensorData[] = array(
 					"id" => $value->id,
 					"readAt" => $value->readAt,
 					"temperatureSoil" => $value->temperatureSoil,
