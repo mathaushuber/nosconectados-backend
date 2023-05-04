@@ -10,6 +10,7 @@ No geral, essas funções de middleware ajudam a proteger e permitir a comunica�
 */
 $app->add(new Tuupola\Middleware\JwtAuthentication([
     "header" => "Authorization",
+    "secure" => false,
     "regexp" => "/(.*)/",
     "path" => "/api", /* or ["/api", "/admin"] */
     "ignore" => ["/api/login", "/api/v1/sensores/lista", "/api/v1/usuarios/cadastro", "/api/v1/sensores/lista-geral",
