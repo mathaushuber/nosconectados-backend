@@ -19,7 +19,7 @@ No geral, esse arquivo de configuração fornece configurações importantes par
 
 return [
     'settings' => [
-        'displayErrorDetails' => false, // set to false in production
+        'displayErrorDetails' => true, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
 
         // Renderer settings
