@@ -19,7 +19,7 @@ No geral, esse arquivo de configuração fornece configurações importantes par
 
 return [
     'settings' => [
-        'displayErrorDetails' => true, // set to false in production
+        'displayErrorDetails' => false, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
 
         // Renderer settings
@@ -37,14 +37,13 @@ return [
         // DB settings
         'db' =>    [
             'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'app_nosconectados',
-            'username'  => 'root',
-            'password'  => '',
+            'host'      => 'us-cdbr-east-06.cleardb.net',
+            'database'  => 'heroku_4142c17b6589585',
+            'username'  => 'b053a0c9ecc7d2',
+            'password'  => 'a969f7b8',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
-            'unix_socket' => '/opt/lampp/var/mysql/mysql.sock',
         ],
         // Secret
         'secretKey' => 'd92347304b7be63e2d4cc3bd63549004c3753d39'
