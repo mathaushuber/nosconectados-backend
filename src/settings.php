@@ -37,13 +37,14 @@ return [
         // DB settings
         'db' =>    [
             'driver'    => 'mysql',
-            'host'      => 'us-cdbr-east-06.cleardb.net',
-            'database'  => 'heroku_72120a6035b4fa2',
-            'username'  => 'bb7bd45573d59e',
-            'password'  => '325d1124',
+            'host'      => 'localhost',
+            'database'  => 'app_nosconectados',
+            'username'  => 'root',
+            'password'  => '',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
+            'unix_socket' => '/opt/lampp/var/mysql/mysql.sock',
         ],
         // Secret
         'secretKey' => 'd92347304b7be63e2d4cc3bd63549004c3753d39'
