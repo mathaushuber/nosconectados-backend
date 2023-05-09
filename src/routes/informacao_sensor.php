@@ -68,35 +68,38 @@ $app->group('/api/v1', function () {
 		$administradores = json_decode($admin);
 		$patrocinadores = json_decode($patro);
 		$visualizadores = json_decode($visua);
-		foreach ($administradores as $key => $value) {
-			if ($value->id != null) {
-				$arrayAdmin[$key] = array(
-					'idInfoSensor' => $idInfoSensor,
-					'isAdminSensor' => 2,
-					'idUsuario' => $value->id,
-				);
-				AtribuicaoSensor::create($arrayAdmin[$key]);
+		if($administradores !== null){
+			foreach ($administradores as $value) {
+				if ($value->id != null) {
+					$teste = AtribuicaoSensor::create([
+						'idInfoSensor' => $idInfoSensor,
+						'isAdminSensor' => 2,
+						'idUsuario' => $value->id,
+					]);
+				}
 			}
 		}
-		foreach ($patrocinadores as $key => $value) {
-			if ($value->id != null) {
-				$arrayPatro[$key] = array(
-					'idInfoSensor' => $idInfoSensor,
-					'isAdminSensor' => 1,
-					'idUsuario' => $value->id,
-				);
-				AtribuicaoSensor::create($arrayPatro[$key]);
+		if($patrocinadores !== null){
+			foreach ($patrocinadores as $value) {
+				if ($value->id != null) {
+					AtribuicaoSensor::create([
+						'idInfoSensor' => $idInfoSensor,
+						'isAdminSensor' => 1,
+						'idUsuario' => $value->id,
+					]);
+				}
 			}
 		}
-		foreach ($visualizadores as $key => $value) {
-			if ($value->id != null) {
-				$arrayVisua[$key] = array(
-					'idInfoSensor' => $idInfoSensor,
-					'isAdminSensor' => 0,
-					'idUsuario' => $value->id,
-				);
-				AtribuicaoSensor::create($arrayVisua[$key]);
-			}
+		if($visualizadores !== null){
+			foreach ($visualizadores as $value) {
+				if ($value->id != null) {
+					AtribuicaoSensor::create([
+						'idInfoSensor' => $idInfoSensor,
+						'isAdminSensor' => 0,
+						'idUsuario' => $value->id,
+					]);
+				}
+			}		
 		}
 		return $response->withJson($informacoesSensor);
 	});
