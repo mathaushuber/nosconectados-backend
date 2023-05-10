@@ -35,6 +35,13 @@ $app->group('/api/v1', function(){
 	
 		return $response->withJson( $sensorData, 200 );
 	});
+
+		// Lista sensores
+		$this->get('/dados/lista', function($request, $response){
+			$dados = Dado::get();
+			return $response->withJson( $sensores );
+	
+		});
 	
 
 });
