@@ -14,7 +14,7 @@ $app->add(new Tuupola\Middleware\JwtAuthentication([
     "regexp" => "/(.*)/",
     "path" => "/api", /* or ["/api", "/admin"] */
     "ignore" => ["/api/login", "/api/v1/sensores/lista", "/api/v1/usuarios/cadastro", "/api/v1/sensores/lista-geral",
-                 "/api/v1/dados/lista", "/api/v1/dados/lista/", "/api/v1/atribuicao/lista-geral/"],
+                 "/api/v1/dados/lista-geral", "/api/v1/dados/lista/", "/api/v1/atribuicao/lista-geral/"],
     "secret" => $container->get('settings')['secretKey']
 ]));
 
