@@ -39,7 +39,7 @@ $app->group('/api/v1', function(){
 		// Lista sensores
 		$this->get('/dados/lista-geral', function($request, $response){
 			$dados = Dado::get();
-			return $response->withJson( $sensores );
+			return $response->withJson( $dados );
 	
 		});
 	
