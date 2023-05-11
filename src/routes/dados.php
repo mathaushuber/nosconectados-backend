@@ -10,7 +10,7 @@ $app->group('/api/v1', function(){
 	
 	// Lista dados
 	$this->get('/dados/lista/{id}', function($request, $response, $args){
-		$dados = Dado::where('id', $args['id'])->orderBy('readAt', 'desc')->take(8)->get();
+		$dados = Dado::where('id', $args['id'])->orderBy('id', 'desc')->take(8)->get();
 	
 		$sensorData = array();
 		foreach ($dados as $key => $value){
