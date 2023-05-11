@@ -42,6 +42,14 @@ $app->group('/api/v1', function(){
 			return $response->withJson( $dados );
 	
 		});
+
+			// Remove atribuicoes para um determinado ID
+	$this->delete('/dados/remove/{id}', function ($request, $response, $args) {
+
+		$dados = Dado::findOrFail($args['id']);
+		$dados->delete();
+		return $response->withJson($dados);
+	});
 	
 
 });
