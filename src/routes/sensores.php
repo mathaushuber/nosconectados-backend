@@ -103,7 +103,7 @@ $app->group('/api/v1', function(){
 		$informacoesSensor = InformacaoSensor::findOrFail( $args['id'] );
 		$sensorData = [];
 		$sensorData = array(
-			"id" => $sensor->id,
+			"id" => $informacoesSensor->id,
 			'lowDescription' => $informacoesSensor->lowDescription,
 			'description' => $informacoesSensor->description,
 			'isActive' => $informacoesSensor->isActive,
