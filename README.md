@@ -1,28 +1,25 @@
-# Slim Framework 3 Skeleton Application
+# NOSCONECTADOS Platform
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 3 application. This application uses the latest Slim 3 with the PHP-View template renderer. It also uses the Monolog logger.
+## About Us
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+NOSCONECTADOS originated as an academic initiative at the Federal University of Pelotas (UFPel), supported by the National Council for Scientific and Technological Development (CNPq). Our primary goal is to foster technological development in the southern region of the state of Rio Grande do Sul, specifically in the city of Pelotas. Our focus is on the agricultural sector, and the platform was initially developed as a solution for integrated pest management.
 
-## Install the Application
+## What the Platform Offers
 
-Run this command from the directory in which you want to install your new Slim Framework application.
+### Decision-Making Power
 
-    php composer.phar create-project slim/slim-skeleton [my-app-name]
+Through a systematic analysis where information and data serve as the foundation for choices, professionals have a tool at their disposal to support daily decision-making. This enables a logical and organized analysis to determine the best course of action.
 
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
+### Reliable Data
 
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writeable.
+Utilizing information provided by Wireless Sensor Networks for the collection of various types of data, our platform ensures reliable information crucial for decision-making. We implement a security layer operating through protocols concerning the collected, processed, sent, stored, and analyzed data.
 
-To run the application in development, you can run these commands 
+### Updated Reports
 
-	cd [my-app-name]
-	php composer.phar start
-	php -S localhost:8000 -t public public/index.php
+Access precise reports from any internet-enabled device, providing intuitive dashboards for a better understanding of data from the user's perspective.
 
-Run this command in the application directory to run the test suite
+## Platform's Purpose
 
-	php composer.phar test
+Our aim is to bring the best of IoT-focused software, delivering dashboards and APIs primarily tailored for the rapidly growing digital agriculture market. Applying the concept of smart farming, the platform is poised to make a significant impact in the agricultural sector. Beyond its application in agribusiness, the platform opens up opportunities for various areas and purposes, including academic research, monitoring diverse resources, and implementation in smart cities and smart campuses.
 
-That's it! Now go build something cool.
+Join us on this journey as we revolutionize decision-making in agriculture through technology and data-driven insights. For inquiries and collaborations, feel free to reach out to us.
