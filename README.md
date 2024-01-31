@@ -4,6 +4,9 @@
 
 NOSCONECTADOS originated as an academic initiative at the Federal University of Pelotas (UFPel), supported by the National Council for Scientific and Technological Development (CNPq). Our primary goal is to foster technological development in the southern region of the state of Rio Grande do Sul, specifically in the city of Pelotas. Our focus is on the agricultural sector, and the platform was initially developed as a solution for integrated pest management.
 
+![Image 1](.images/image1.jpg)
+![Image 2](.images/image2.jpg)
+
 ## What the Platform Offers
 
 ### Decision-Making Power
@@ -18,8 +21,36 @@ Utilizing information provided by Wireless Sensor Networks for the collection of
 
 Access precise reports from any internet-enabled device, providing intuitive dashboards for a better understanding of data from the user's perspective.
 
-## Platform's Purpose
+## How to Use
 
-Our aim is to bring the best of IoT-focused software, delivering dashboards and APIs primarily tailored for the rapidly growing digital agriculture market. Applying the concept of smart farming, the platform is poised to make a significant impact in the agricultural sector. Beyond its application in agribusiness, the platform opens up opportunities for various areas and purposes, including academic research, monitoring diverse resources, and implementation in smart cities and smart campuses.
+To run the application, follow these steps:
 
-Join us on this journey as we revolutionize decision-making in agriculture through technology and data-driven insights. For inquiries and collaborations, feel free to reach out to us.
+1. Install PHP 8.1.2-1ubuntu2.14 (cli) (built: Aug 18 2023 11:41:11) (NTS).
+2. Run the following commands in the terminal:
+
+```
+php composer.phar start
+php -S localhost:8000 -t public public/index.php
+```
+
+
+## External Article
+
+Check out our [TCC Article](https://github.com/HuberM1998/TCC) for more in-depth information.
+
+## How to Contribute
+
+If you would like to contribute to our project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push to your fork and submit a pull request.
+
+We appreciate your contributions!
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://choosealicense.com/licenses/mit) file for details.
