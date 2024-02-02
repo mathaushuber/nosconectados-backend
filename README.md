@@ -4,8 +4,9 @@
 
 NOSCONECTADOS originated as an academic initiative at the Federal University of Pelotas (UFPel), supported by the National Council for Scientific and Technological Development (CNPq). Our primary goal is to foster technological development in the southern region of the state of Rio Grande do Sul, specifically in the city of Pelotas. Our focus is on the agricultural sector, and the platform was initially developed as a solution for integrated pest management.
 
-![Image 1](.images/image1.jpg)
-![Image 2](.images/image2.jpg)
+<img src=".images/image3.png" alt="Image 3"/>
+<img src=".images/image1.png" alt="Image 1"/>
+<img src=".images/image2.png" alt="Image 2"/>
 
 ## What the Platform Offers
 
