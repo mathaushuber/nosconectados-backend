@@ -39,6 +39,10 @@ php -S localhost:8000 -t public public/index.php
 
 Check out our [TCC Article](https://github.com/HuberM1998/TCC) for more in-depth information.
 
+## Documentation
+
+Explore our official documentation on [GitHub](https://github.com/HuberM1998/nosconectados).
+
 ## How to Contribute
 
 If you would like to contribute to our project, please follow these steps:
