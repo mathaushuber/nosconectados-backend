@@ -54,4 +54,4 @@ We appreciate your contributions!
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://choosealicense.com/licenses/mit) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/HuberM1998/nosconectados-backend/blob/main/LICENSE.md) file for details.
